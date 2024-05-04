@@ -6,12 +6,14 @@ import {
   createColumnHelper,
   getPaginationRowModel,
   SortingState,
+  GlobalFilterTableState,
+  getSortedRowModel,
 } from "@tanstack/react-table";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import CreatePost from "../components/CreatePost";
 import EditPost from "../components/EditPost";
-import { FaRegEdit } from "react-icons/fa";
+import { FaRegEdit, FaRegTrashAlt } from "react-icons/fa";
 
 type Post = {
   body: string;
@@ -54,7 +56,7 @@ export default function Datas() {
               setEditData(info.cell.row.original);
             }}
           >
-            Edit
+            <FaRegEdit />
           </button>
         );
       },
@@ -67,7 +69,7 @@ export default function Datas() {
             handleDelete(info.getValue());
           }}
         >
-          <FaRegEdit />
+          <FaRegTrashAlt />
         </button>
       ),
     }),
@@ -83,6 +85,7 @@ export default function Datas() {
       sorting: sorting,
       globalFilter: search,
     },
+    getSortedRowModel: getSortedRowModel(),
     onSortingChange: setSorting,
     onGlobalFilterChange: setSerch,
   });
@@ -120,13 +123,13 @@ export default function Datas() {
   }, []);
 
   return (
-    <div>
-      <div>
+    <div className="table-datas">
+      <div className="header">
         <button onClick={() => setIsCreate(true)}>Create</button>
         <input
           type="text"
           placeholder="Search..."
-          value={search}
+          value={search ?? ""}
           onChange={(e) => setSerch(e.target.value)}
         />
       </div>
@@ -138,15 +141,18 @@ export default function Datas() {
               {headerGroup.headers.map((header) => (
                 <th
                   key={header.id}
-                  onClick={header.column.getToggleSortingHandler()}
+                  {...{
+                    onClick: header.column.getToggleSortingHandler(),
+                  }}
+                  //   onClick={header.column.getToggleSortingHandler()}
                 >
                   {flexRender(
                     header.column.columnDef.header,
                     header.getContext()
                   )}
                   {{
-                    asc: "🔽",
-                    desc: "🔼",
+                    asc: " 🔼",
+                    desc: " 🔽",
                   }[header.column.getIsSorted() as string] ?? null}
                 </th>
               ))}
