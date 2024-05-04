@@ -95,7 +95,6 @@ export default function Datas() {
 
   const table = useReactTable({
     data: posts,
-    // data: storedData,
     columns,
     debugTable: true,
     getCoreRowModel: getCoreRowModel(),
