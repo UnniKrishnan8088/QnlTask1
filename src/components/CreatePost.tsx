@@ -8,15 +8,15 @@ type CrudProps = {
 };
 
 type PostData = {
-  title: string;
-  body: string;
+  name: string;
+  job: string;
   userId: number;
 };
 
 export default function CreatePost({ closeModal, getPosts }: CrudProps) {
   const [inputs, setInputs] = useState<PostData>({
-    title: "",
-    body: "",
+    name: "",
+    job: "",
     userId: 0,
   });
 
@@ -31,10 +31,11 @@ export default function CreatePost({ closeModal, getPosts }: CrudProps) {
   const createPost = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
-        "https://jsonplaceholder.typicode.com/posts",
-        inputs
-      );
+      //   const response = await axios.post(
+      //     "https://jsonplaceholder.typicode.com/posts",
+      //     inputs
+      //   );
+      const response = await axios.post("http://localhost:3001/posts", inputs);
       console.log(response?.data);
       getPosts();
     } catch (error) {
@@ -57,21 +58,17 @@ export default function CreatePost({ closeModal, getPosts }: CrudProps) {
           />
         </div>
         <div className="input">
-          <label htmlFor="">title</label>
+          <label htmlFor="">Name</label>
           <input
             type="text"
-            name="title"
-            value={inputs.title}
+            name="name"
+            value={inputs.name}
             onChange={handleChange}
           />
         </div>
         <div className="input">
-          <label htmlFor="">body</label>
-          <input
-            name="body"
-            value={inputs.body}
-            onChange={handleChange}
-          ></input>
+          <label htmlFor="">Job</label>
+          <input name="job" value={inputs.job} onChange={handleChange}></input>
         </div>
         <button>Create</button>
       </form>

@@ -2,8 +2,8 @@ import { Dispatch, SetStateAction, useState } from "react";
 import axios from "axios";
 
 type PostData = {
-  title: string;
-  body: string;
+  name: string;
+  job: string;
   userId: number;
   id?: number | null;
 };
@@ -22,8 +22,8 @@ export default function EditPost({
   setPosts,
 }: EditProps) {
   const [inputs, setInputs] = useState<PostData>({
-    title: editData.title,
-    body: editData.body,
+    name: editData.name,
+    job: editData.job,
     userId: editData.userId,
     id: editData.id,
   });
@@ -44,8 +44,12 @@ export default function EditPost({
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
+      //   const response = await axios.put(
+      //     `https://jsonplaceholder.typicode.com/posts/${inputs.id}`,
+      //     inputs
+      //   );
       const response = await axios.put(
-        `https://jsonplaceholder.typicode.com/posts/${inputs.id}`,
+        `http://localhost:3001/posts/${inputs.id}`,
         inputs
       );
       console.log(response);
@@ -74,18 +78,14 @@ export default function EditPost({
           <label htmlFor="">title</label>
           <input
             type="text"
-            name="title"
-            value={inputs.title}
+            name="name"
+            value={inputs.name}
             onChange={handleChange}
           />
         </div>
         <div className="input">
           <label htmlFor="">body</label>
-          <input
-            name="body"
-            value={inputs.body}
-            onChange={handleChange}
-          ></input>
+          <input name="job" value={inputs.job} onChange={handleChange}></input>
         </div>
         <button>Save Changes</button>
       </form>

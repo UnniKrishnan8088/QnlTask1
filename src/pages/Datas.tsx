@@ -16,8 +16,8 @@ import EditPost from "../components/EditPost";
 import { FaRegEdit, FaRegTrashAlt } from "react-icons/fa";
 
 export type Post = {
-  body: string;
-  title: string;
+  job: string;
+  name: string;
   userId: number;
   id?: number | null;
 };
@@ -30,8 +30,8 @@ export default function Datas() {
   const [isEdit, setIsEdit] = useState<boolean>(false);
   //   const [storedData, setStoredData] = useState<Post[]>([]);
   const [editData, setEditData] = useState<Post>({
-    body: "",
-    title: "",
+    job: "",
+    name: "",
     userId: 0,
   });
 
@@ -43,12 +43,16 @@ export default function Datas() {
       header: () => "ID",
       cell: (info) => info.getValue(),
     }),
-    columnHelper.accessor("title", {
-      header: () => "title",
+    columnHelper.accessor("name", {
+      header: () => "Name",
+      cell: (info) => info.getValue(),
+    }),
+    columnHelper.accessor("job", {
+      header: () => "Job",
       cell: (info) => info.getValue(),
     }),
     columnHelper.accessor("id", {
-      header: () => "edit",
+      header: () => "Edit",
       cell: (info) => {
         return (
           <button
@@ -94,9 +98,10 @@ export default function Datas() {
 
   const getPosts = async (): Promise<void> => {
     try {
-      const response = await axios.get(
-        "https://jsonplaceholder.typicode.com/posts"
-      );
+      //   const response = await axios.get(
+      //     "https://jsonplaceholder.typicode.com/posts"
+      //   );
+      const response = await axios.get("http://localhost:3001/posts");
 
       console.log(response?.data);
 
@@ -110,9 +115,7 @@ export default function Datas() {
 
   const handleDelete = async (id: number | null | undefined) => {
     try {
-      const response = await axios.delete(
-        `https://jsonplaceholder.typicode.com/posts/${id}`
-      );
+      const response = await axios.delete(`http://localhost:3001/posts/${id}`);
       console.log(response);
       setPosts(posts?.filter((post) => post?.id !== id));
     } catch (error) {
