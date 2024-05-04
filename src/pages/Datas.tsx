@@ -15,7 +15,7 @@ import CreatePost from "../components/CreatePost";
 import EditPost from "../components/EditPost";
 import { FaRegEdit, FaRegTrashAlt } from "react-icons/fa";
 
-type Post = {
+export type Post = {
   body: string;
   title: string;
   userId: number;
@@ -28,6 +28,7 @@ export default function Datas() {
   const [posts, setPosts] = useState<Post[]>([]);
   const [isCreate, setIsCreate] = useState<boolean>(false);
   const [isEdit, setIsEdit] = useState<boolean>(false);
+  //   const [storedData, setStoredData] = useState<Post[]>([]);
   const [editData, setEditData] = useState<Post>({
     body: "",
     title: "",
@@ -77,6 +78,7 @@ export default function Datas() {
 
   const table = useReactTable({
     data: posts,
+    // data: storedData,
     columns,
     debugTable: true,
     getCoreRowModel: getCoreRowModel(),
@@ -100,19 +102,19 @@ export default function Datas() {
 
       setPosts(response?.data);
       console.log("Posts =>> ", posts);
+      localStorage.setItem("tableData", JSON.stringify(posts));
     } catch (error: any) {
       console.log(error.message);
     }
   };
 
   const handleDelete = async (id: number | null | undefined) => {
-    console.log(id);
-
     try {
       const response = await axios.delete(
         `https://jsonplaceholder.typicode.com/posts/${id}`
       );
       console.log(response);
+      setPosts(posts?.filter((post) => post?.id !== id));
     } catch (error) {
       console.log(error);
     }
@@ -196,6 +198,7 @@ export default function Datas() {
 
       {isEdit && (
         <EditPost
+          setPosts={setPosts}
           getPosts={getPosts}
           closeModal={() => setIsEdit(false)}
           editData={editData}

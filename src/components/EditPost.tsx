@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import axios from "axios";
 
 type PostData = {
@@ -12,12 +12,14 @@ type EditProps = {
   editData: PostData;
   closeModal: () => void;
   getPosts: () => void;
+  setPosts: Dispatch<SetStateAction<PostData[]>>;
 };
 
 export default function EditPost({
   editData,
   closeModal,
   getPosts,
+  setPosts,
 }: EditProps) {
   const [inputs, setInputs] = useState<PostData>({
     title: editData.title,
@@ -47,6 +49,9 @@ export default function EditPost({
         inputs
       );
       console.log(response);
+
+      getPosts();
+      closeModal();
     } catch (error) {
       console.log(error);
     }

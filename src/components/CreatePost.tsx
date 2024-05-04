@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
+import { Post } from "../pages/Datas";
 
 type CrudProps = {
   closeModal: () => void;
@@ -40,6 +41,7 @@ export default function CreatePost({ closeModal, getPosts }: CrudProps) {
       console.log(error);
     }
   };
+
   return (
     <div className="popup">
       <form onSubmit={createPost}>
