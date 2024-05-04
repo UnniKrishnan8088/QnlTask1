@@ -61,8 +61,10 @@ export default function Registration() {
             onChange={handleChange}
           />
         </div>
-        <button>Register</button>
-        <Link to="/login">Login</Link>
+        <div className="btn">
+          <button>Register</button>
+          <Link to="/login">Login</Link>
+        </div>
       </form>
     </div>
   );

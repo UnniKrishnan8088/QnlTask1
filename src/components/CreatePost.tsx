@@ -38,6 +38,7 @@ export default function CreatePost({ closeModal, getPosts }: CrudProps) {
       const response = await axios.post("http://localhost:3001/posts", inputs);
       console.log(response?.data);
       getPosts();
+      closeModal()
     } catch (error) {
       console.log(error);
     }
@@ -46,9 +47,11 @@ export default function CreatePost({ closeModal, getPosts }: CrudProps) {
   return (
     <div className="popup">
       <form onSubmit={createPost}>
-        <button onClick={closeModal}>X</button>
-        <h2>Create Post</h2>
-        <div className="input">
+        <button className="close-btn" onClick={closeModal}>
+          ❌
+        </button>
+        <h1>Create Post</h1>
+        <div className="inputs">
           <label htmlFor="">User Id</label>
           <input
             type="number"
@@ -57,7 +60,7 @@ export default function CreatePost({ closeModal, getPosts }: CrudProps) {
             onChange={handleChange}
           />
         </div>
-        <div className="input">
+        <div className="inputs">
           <label htmlFor="">Name</label>
           <input
             type="text"
@@ -66,11 +69,13 @@ export default function CreatePost({ closeModal, getPosts }: CrudProps) {
             onChange={handleChange}
           />
         </div>
-        <div className="input">
+        <div className="inputs">
           <label htmlFor="">Job</label>
           <input name="job" value={inputs.job} onChange={handleChange}></input>
         </div>
-        <button>Create</button>
+        <div className="btn">
+          <button>Create</button>
+        </div>
       </form>
     </div>
   );

@@ -61,8 +61,10 @@ export default function Login() {
             onChange={handleChange}
           />
         </div>
-        <button>Login</button>
-        <Link to="/">Register</Link>
+        <div className="btn">
+          <button>Login</button>
+          <Link to="/">Register</Link>
+        </div>
       </form>
     </div>
   );

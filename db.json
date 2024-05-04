@@ -1,3 +1,76 @@
 {
-  "posts": []
+  "posts": [
+    {
+      "name": "unni krishnan k",
+      "job": "Frontend React js developer",
+      "userId": "1",
+      "id": "f081"
+    },
+    {
+      "id": "896e",
+      "name": "Arjun k",
+      "job": "Angular Developer",
+      "userId": "2"
+    },
+    {
+      "id": "79a4",
+      "name": "Syam ES",
+      "job": "Backend Developer",
+      "userId": "3"
+    },
+    {
+      "id": "92b3",
+      "name": "Suneesh",
+      "job": "Backend Developer",
+      "userId": "4"
+    },
+    {
+      "id": "77ba",
+      "name": "Ashik",
+      "job": "Backend Developer",
+      "userId": "5"
+    },
+    {
+      "id": "4a0e",
+      "name": "Shezin",
+      "job": "Flutter Developer",
+      "userId": "6"
+    },
+    {
+      "id": "8f1c",
+      "name": "Kevin",
+      "job": "Software Tester",
+      "userId": "10"
+    },
+    {
+      "id": "37c6",
+      "name": "Alex",
+      "job": "Frontend React js developer",
+      "userId": "12"
+    },
+    {
+      "name": "Hitha A S",
+      "job": "Backend Developer",
+      "userId": "13",
+      "id": "2ea6"
+    },
+    {
+      "id": "ecc6",
+      "name": "Pooja",
+      "job": "Backend Developer",
+      "userId": "133"
+    },
+    {
+      "id": "9331",
+      "name": "Seheed",
+      "job": "UI/UX Designer",
+      "userId": "34"
+    },
+    {
+      "id": "109e",
+      "name": "Faris",
+      "job": "Web Developer",
+      "userId": "53"
+    }
+  ]
 }

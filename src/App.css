@@ -3,6 +3,12 @@
   padding: 0;
   box-sizing: border-box;
 }
+input {
+  outline: none;
+}
+button {
+  cursor: pointer;
+}
 
 .container {
   width: 100%;
@@ -26,6 +32,23 @@
 
 form {
   background: white;
+  padding: 10px;
+  max-width: 400px;
+  width: 100%;
+  position: relative;
+  border-radius: 10px;
+}
+form h1 {
+  text-align: center;
+}
+
+form .inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+form .inputs input {
   padding: 10px;
 }
 .table-datas {
@@ -75,4 +98,21 @@ td {
 .header input {
   padding: 10px;
   outline: none;
+}
+
+.btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.btn button {
+  width: 100%;
+  padding: 6px;
+}
+
+form .close-btn {
+  position: absolute;
+  right: 10px;
+  border: none;
+  background-color: white;
 }

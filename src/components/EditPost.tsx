@@ -63,9 +63,11 @@ export default function EditPost({
   return (
     <div className="popup">
       <form onSubmit={handleSubmit}>
-        <button onClick={handleClose}>X</button>
-        <h2>Edit Post</h2>
-        <div className="input">
+        <button className="close-btn" onClick={handleClose}>
+          ❌
+        </button>
+        <h1>Edit Post</h1>
+        <div className="inputs">
           <label htmlFor="">User Id</label>
           <input
             type="number"
@@ -74,7 +76,7 @@ export default function EditPost({
             onChange={handleChange}
           />
         </div>
-        <div className="input">
+        <div className="inputs">
           <label htmlFor="">title</label>
           <input
             type="text"
@@ -83,11 +85,13 @@ export default function EditPost({
             onChange={handleChange}
           />
         </div>
-        <div className="input">
+        <div className="inputs">
           <label htmlFor="">body</label>
           <input name="job" value={inputs.job} onChange={handleChange}></input>
         </div>
-        <button>Save Changes</button>
+        <div className="btn">
+          <button>Save Changes</button>
+        </div>
       </form>
     </div>
   );

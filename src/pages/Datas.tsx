@@ -22,9 +22,17 @@ export type Post = {
   id?: number | null;
 };
 
+interface ColumnFilter {
+  id: string;
+  value: unknown;
+}
+type ColumnFiltersState = ColumnFilter[];
+
 const columnHelper = createColumnHelper<Post>();
 
 export default function Datas() {
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+
   const [posts, setPosts] = useState<Post[]>([]);
   const [isCreate, setIsCreate] = useState<boolean>(false);
   const [isEdit, setIsEdit] = useState<boolean>(false);
@@ -42,14 +50,17 @@ export default function Datas() {
     columnHelper.accessor("id", {
       header: () => "ID",
       cell: (info) => info.getValue(),
+      enableColumnFilter: false,
     }),
     columnHelper.accessor("name", {
       header: () => "Name",
       cell: (info) => info.getValue(),
+      enableColumnFilter: true,
     }),
     columnHelper.accessor("job", {
       header: () => "Job",
       cell: (info) => info.getValue(),
+      enableColumnFilter: true,
     }),
     columnHelper.accessor("id", {
       header: () => "Edit",
@@ -65,6 +76,7 @@ export default function Datas() {
           </button>
         );
       },
+      enableColumnFilter: false,
     }),
     columnHelper.accessor("id", {
       header: () => "Delete",
@@ -77,6 +89,7 @@ export default function Datas() {
           <FaRegTrashAlt />
         </button>
       ),
+      enableColumnFilter: false,
     }),
   ];
 
@@ -90,10 +103,12 @@ export default function Datas() {
     state: {
       sorting: sorting,
       globalFilter: search,
+      columnFilters,
     },
     getSortedRowModel: getSortedRowModel(),
     onSortingChange: setSorting,
     onGlobalFilterChange: setSerch,
+    onColumnFiltersChange: setColumnFilters,
   });
 
   const getPosts = async (): Promise<void> => {
@@ -146,19 +161,32 @@ export default function Datas() {
               {headerGroup.headers.map((header) => (
                 <th
                   key={header.id}
-                  {...{
-                    onClick: header.column.getToggleSortingHandler(),
-                  }}
+
                   //   onClick={header.column.getToggleSortingHandler()}
                 >
-                  {flexRender(
-                    header.column.columnDef.header,
-                    header.getContext()
+                  <div
+                    {...{
+                      onClick: header.column.getToggleSortingHandler(),
+                    }}
+                  >
+                    {flexRender(
+                      header.column.columnDef.header,
+                      header.getContext()
+                    )}
+                    {{
+                      asc: " 🔼",
+                      desc: " 🔽",
+                    }[header.column.getIsSorted() as string] ?? null}
+                  </div>
+                  {header.column.getCanFilter() && (
+                    <input
+                      type="text"
+                      value={(header.column.getFilterValue() || "") as string}
+                      onChange={(e) =>
+                        header.column.setFilterValue(e.target.value)
+                      }
+                    />
                   )}
-                  {{
-                    asc: " 🔼",
-                    desc: " 🔽",
-                  }[header.column.getIsSorted() as string] ?? null}
                 </th>
               ))}
             </tr>
