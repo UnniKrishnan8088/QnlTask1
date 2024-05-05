@@ -14,6 +14,7 @@ export default function Login() {
     password: "",
   });
 
+  // Define a function to handle changes in input fields
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prevState) => ({
@@ -22,6 +23,7 @@ export default function Login() {
     }));
   };
 
+  // Define a function to handle form submission
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -30,12 +32,12 @@ export default function Login() {
         email: formData.email,
         password: formData.password,
       });
-      if (response?.status === 200) {
+      if (response?.data?.token) {
         navigate("/details");
       }
-      console.log(response, "==>>");
-    } catch (error: any) {
-      console.log(error.message);
+      console.log(response?.data?.token, "==>>");
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -50,6 +52,7 @@ export default function Login() {
             name="email"
             value={formData.email}
             onChange={handleChange}
+            required
           />
         </div>
         <div className="inputs">
@@ -59,6 +62,7 @@ export default function Login() {
             name="password"
             value={formData.password}
             onChange={handleChange}
+            required
           />
         </div>
         <div className="btn">

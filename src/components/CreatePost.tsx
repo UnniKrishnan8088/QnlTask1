@@ -10,16 +10,17 @@ type CrudProps = {
 type PostData = {
   name: string;
   job: string;
-  userId: number;
+  userId: number | "";
 };
 
 export default function CreatePost({ closeModal, getPosts }: CrudProps) {
   const [inputs, setInputs] = useState<PostData>({
     name: "",
     job: "",
-    userId: 0,
+    userId: "",
   });
 
+  // Define a function to handle changes in input fields
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setInputs((prevState) => ({
@@ -28,17 +29,14 @@ export default function CreatePost({ closeModal, getPosts }: CrudProps) {
     }));
   };
 
+  // Define a function to handle form submission
   const createPost = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      //   const response = await axios.post(
-      //     "https://jsonplaceholder.typicode.com/posts",
-      //     inputs
-      //   );
       const response = await axios.post("http://localhost:3001/posts", inputs);
       console.log(response?.data);
       getPosts();
-      closeModal()
+      closeModal();
     } catch (error) {
       console.log(error);
     }
@@ -58,6 +56,7 @@ export default function CreatePost({ closeModal, getPosts }: CrudProps) {
             name="userId"
             value={inputs.userId}
             onChange={handleChange}
+            required
           />
         </div>
         <div className="inputs">
@@ -67,11 +66,17 @@ export default function CreatePost({ closeModal, getPosts }: CrudProps) {
             name="name"
             value={inputs.name}
             onChange={handleChange}
+            required
           />
         </div>
         <div className="inputs">
           <label htmlFor="">Job</label>
-          <input name="job" value={inputs.job} onChange={handleChange}></input>
+          <input
+            name="job"
+            value={inputs.job}
+            onChange={handleChange}
+            required
+          ></input>
         </div>
         <div className="btn">
           <button>Create</button>

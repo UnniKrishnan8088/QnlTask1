@@ -14,6 +14,14 @@ import { useEffect, useState } from "react";
 import CreatePost from "../components/CreatePost";
 import EditPost from "../components/EditPost";
 import { FaRegEdit, FaRegTrashAlt } from "react-icons/fa";
+import { FaChevronUp } from "react-icons/fa";
+import { FaChevronDown } from "react-icons/fa";
+import {
+  FiChevronRight,
+  FiChevronsRight,
+  FiChevronsLeft,
+  FiChevronLeft,
+} from "react-icons/fi";
 
 export type Post = {
   job: string;
@@ -32,11 +40,11 @@ const columnHelper = createColumnHelper<Post>();
 
 export default function Datas() {
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-
   const [posts, setPosts] = useState<Post[]>([]);
   const [isCreate, setIsCreate] = useState<boolean>(false);
   const [isEdit, setIsEdit] = useState<boolean>(false);
   //   const [storedData, setStoredData] = useState<Post[]>([]);
+
   const [editData, setEditData] = useState<Post>({
     job: "",
     name: "",
@@ -46,10 +54,11 @@ export default function Datas() {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [search, setSerch] = useState<string>("");
 
+  //Defining the columns of the table
   const columns = [
     columnHelper.accessor("id", {
-      header: () => "ID",
-      cell: (info) => info.getValue(),
+      header: () => "No.",
+      cell: (info) => info.row.index + 1,
       enableColumnFilter: false,
     }),
     columnHelper.accessor("name", {
@@ -93,6 +102,7 @@ export default function Datas() {
     }),
   ];
 
+  //creating an instance
   const table = useReactTable({
     data: posts,
     columns,
@@ -110,15 +120,11 @@ export default function Datas() {
     onColumnFiltersChange: setColumnFilters,
   });
 
+  //api call for get the data
   const getPosts = async (): Promise<void> => {
     try {
-      //   const response = await axios.get(
-      //     "https://jsonplaceholder.typicode.com/posts"
-      //   );
       const response = await axios.get("http://localhost:3001/posts");
-
       console.log(response?.data);
-
       setPosts(response?.data);
       console.log("Posts =>> ", posts);
       localStorage.setItem("tableData", JSON.stringify(posts));
@@ -127,6 +133,7 @@ export default function Datas() {
     }
   };
 
+  //function for delete the data
   const handleDelete = async (id: number | null | undefined) => {
     try {
       const response = await axios.delete(`http://localhost:3001/posts/${id}`);
@@ -164,6 +171,7 @@ export default function Datas() {
                   //   onClick={header.column.getToggleSortingHandler()}
                 >
                   <div
+                    className="header__title"
                     {...{
                       onClick: header.column.getToggleSortingHandler(),
                     }}
@@ -173,11 +181,11 @@ export default function Datas() {
                       header.getContext()
                     )}
                     {{
-                      asc: " 🔼",
-                      desc: " 🔽",
+                      asc: <FaChevronUp />,
+                      desc: <FaChevronDown />,
                     }[header.column.getIsSorted() as string] ?? null}
                   </div>
-                  {header.column.getCanFilter() && (
+                  {/* {header.column.getCanFilter() && (
                     <input
                       type="text"
                       value={(header.column.getFilterValue() || "") as string}
@@ -185,7 +193,7 @@ export default function Datas() {
                         header.column.setFilterValue(e.target.value)
                       }
                     />
-                  )}
+                  )} */}
                 </th>
               ))}
             </tr>
@@ -204,22 +212,48 @@ export default function Datas() {
         </tbody>
       </table>
       <div className="pagination">
-        <button onClick={() => table.setPageIndex(0)}>First Page</button>
+        <select
+          value={table.getState().pagination.pageSize}
+          onChange={(e) => table.setPageSize(Number(e.target.value))}
+        >
+          {[10, 20, 30, 40, 50].map((pageSize) => (
+            <option key={pageSize} value={pageSize}>
+              Show {pageSize}
+            </option>
+          ))}
+        </select>
+        <button onClick={() => table.setPageIndex(0)}>
+          <FiChevronsLeft />
+        </button>
         <button
           disabled={!table.getCanPreviousPage()}
           onClick={() => table.previousPage()}
         >
-          Prev
+          <FiChevronLeft />
         </button>
+        <p>
+          {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
+        </p>
         <button
           disabled={!table.getCanNextPage()}
           onClick={() => table.nextPage()}
         >
-          Next
+          <FiChevronRight />
         </button>
         <button onClick={() => table.setPageIndex(table.getPageCount() - 1)}>
-          Last Page
+          <FiChevronsRight />
         </button>
+        <div className="go__to__page">
+          <p>Go to page: </p>
+          <input
+            type="number"
+            defaultValue={table.getState().pagination.pageIndex + 1}
+            onChange={(e) => {
+              const page = e.target.value ? Number(e.target.value) - 1 : 0;
+              table.setPageIndex(page);
+            }}
+          />
+        </div>
       </div>
 
       {isCreate && (

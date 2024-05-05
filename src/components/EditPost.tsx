@@ -19,7 +19,6 @@ export default function EditPost({
   editData,
   closeModal,
   getPosts,
-  setPosts,
 }: EditProps) {
   const [inputs, setInputs] = useState<PostData>({
     name: editData.name,
@@ -28,6 +27,7 @@ export default function EditPost({
     id: editData.id,
   });
 
+  // Define a function to handle changes in input fields
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setInputs((prevState) => ({
@@ -41,13 +41,10 @@ export default function EditPost({
     closeModal();
   };
 
+  // Define a function to handle form submission
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      //   const response = await axios.put(
-      //     `https://jsonplaceholder.typicode.com/posts/${inputs.id}`,
-      //     inputs
-      //   );
       const response = await axios.put(
         `http://localhost:3001/posts/${inputs.id}`,
         inputs
@@ -74,6 +71,7 @@ export default function EditPost({
             name="userId"
             value={inputs.userId}
             onChange={handleChange}
+            required
           />
         </div>
         <div className="inputs">
@@ -83,11 +81,17 @@ export default function EditPost({
             name="name"
             value={inputs.name}
             onChange={handleChange}
+            required
           />
         </div>
         <div className="inputs">
           <label htmlFor="">body</label>
-          <input name="job" value={inputs.job} onChange={handleChange}></input>
+          <input
+            name="job"
+            value={inputs.job}
+            onChange={handleChange}
+            required
+          ></input>
         </div>
         <div className="btn">
           <button>Save Changes</button>

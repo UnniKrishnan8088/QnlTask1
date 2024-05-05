@@ -14,6 +14,7 @@ export default function Registration() {
     password: "",
   });
 
+  // Define a function to handle changes in input fields
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prevState) => ({
@@ -22,6 +23,7 @@ export default function Registration() {
     }));
   };
 
+  // Define a function to handle form submission
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -44,12 +46,13 @@ export default function Registration() {
       <form onSubmit={handleSubmit}>
         <h1>Create Account</h1>
         <div className="inputs">
-          <label htmlFor="">Username</label>
+          <label htmlFor="">Email</label>
           <input
             type="text"
             name="email"
             value={formData.email}
             onChange={handleChange}
+            required
           />
         </div>
         <div className="inputs">
@@ -59,6 +62,7 @@ export default function Registration() {
             name="password"
             value={formData.password}
             onChange={handleChange}
+            required
           />
         </div>
         <div className="btn">
