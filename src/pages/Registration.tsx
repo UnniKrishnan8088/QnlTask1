@@ -1,17 +1,14 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
-
-type FormData = {
-  email: string;
-  password: string;
-};
+import { FormData } from "../types/types";
 
 export default function Registration() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState<FormData>({
     email: "",
     password: "",
+    password2: "",
   });
 
   // Define a function to handle changes in input fields
@@ -26,7 +23,10 @@ export default function Registration() {
   // Define a function to handle form submission
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+    if (formData.password !== formData.password2) {
+      alert("Password not match");
+      return;
+    }
     try {
       const response = await axios.post("https://reqres.in/api/register", {
         email: formData.email,
@@ -38,7 +38,6 @@ export default function Registration() {
       console.log(response, "==>>");
     } catch (error: any) {
       alert(error.message);
-
     }
   };
 
@@ -62,6 +61,16 @@ export default function Registration() {
             type="password"
             name="password"
             value={formData.password}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="inputs">
+          <label htmlFor="">Password</label>
+          <input
+            type="password"
+            name="password2"
+            value={formData.password2}
             onChange={handleChange}
             required
           />

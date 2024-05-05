@@ -1,11 +1,8 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
+import { FormData } from "../types/types";
 
-type FormData = {
-  email: string;
-  password: string;
-};
 
 export default function Login() {
   const navigate = useNavigate();
