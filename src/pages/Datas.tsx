@@ -76,6 +76,7 @@ export default function Datas() {
       cell: (info) => {
         return (
           <button
+            className="action-btn edit"
             onClick={() => {
               setIsEdit(true);
               setEditData(info.cell.row.original);
@@ -91,6 +92,7 @@ export default function Datas() {
       header: () => "Delete",
       cell: (info) => (
         <button
+          className="action-btn dlt"
           onClick={() => {
             handleDelete(info.getValue());
           }}
@@ -151,7 +153,7 @@ export default function Datas() {
   return (
     <div className="table-datas">
       <div className="header">
-        <button onClick={() => setIsCreate(true)}>Create</button>
+        <button className="create-btn" onClick={() => setIsCreate(true)}>Create</button>
         <input
           type="text"
           placeholder="Search..."

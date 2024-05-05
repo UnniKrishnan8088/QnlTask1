@@ -37,7 +37,8 @@ export default function Registration() {
       }
       console.log(response, "==>>");
     } catch (error: any) {
-      console.log(error.message);
+      alert(error.message);
+
     }
   };
 
@@ -48,7 +49,7 @@ export default function Registration() {
         <div className="inputs">
           <label htmlFor="">Email</label>
           <input
-            type="text"
+            type="email"
             name="email"
             value={formData.email}
             onChange={handleChange}

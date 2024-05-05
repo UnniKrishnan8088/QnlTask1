@@ -77,6 +77,7 @@ table thead tr {
   color: #ffffff;
   text-align: left;
   font-weight: bold;
+  text-transform: uppercase;
 }
 table tbody tr {
   border-bottom: 1px solid #dddddd;
@@ -126,6 +127,7 @@ form .close-btn {
 .pagination {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 10px;
 }
 
@@ -143,4 +145,30 @@ form .close-btn {
   display: flex;
   align-items: center;
   gap: 10px;
+}
+
+.action-btn {
+  border: none;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: white;
+}
+.edit {
+  background: #f94d00;
+}
+
+.dlt {
+  background: #ff0000;
+}
+
+.create-btn {
+  background: white;
+  border: 2px solid #009879;
+  border-radius: 10px;
+  color: #009879;
+  font-weight: bold;
 }

@@ -7,10 +7,10 @@
       "id": "f081"
     },
     {
-      "id": "896e",
       "name": "Arjun k",
       "job": "Angular Developer",
-      "userId": "2"
+      "userId": "2",
+      "id": "896e"
     },
     {
       "id": "79a4",
@@ -71,18 +71,6 @@
       "name": "Faris",
       "job": "Web Developer",
       "userId": "53"
-    },
-    {
-      "id": "7ee4",
-      "name": "s;lkdfjk",
-      "job": "sldkfjsdf",
-      "userId": "12304872"
-    },
-    {
-      "id": "147b",
-      "name": "selkjsdf",
-      "job": "sdlkjksdf",
-      "userId": "12"
     }
   ]
 }

@@ -48,7 +48,7 @@ export default function Login() {
         <div className="inputs">
           <label htmlFor="">Email</label>
           <input
-            type="text"
+            type="email"
             name="email"
             value={formData.email}
             onChange={handleChange}
