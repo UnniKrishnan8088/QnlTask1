@@ -34,7 +34,7 @@ export default function Login() {
       });
       if (response?.data?.token) {
         auth?.login(response?.data?.token);
-        localStorage.setItem("token", response?.data?.token);
+        // localStorage.setItem("token", response?.data?.token);
         navigate("/details");
       }
       console.log(response?.data?.token, "==>>");
