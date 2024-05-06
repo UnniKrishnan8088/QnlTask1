@@ -2,14 +2,17 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import { FormData } from "../types/types";
-
+import { useAuth } from "../context/auth";
 
 export default function Login() {
   const navigate = useNavigate();
+
   const [formData, setFormData] = useState<FormData>({
     email: "",
     password: "",
   });
+
+  const auth = useAuth();
 
   // Define a function to handle changes in input fields
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -30,6 +33,8 @@ export default function Login() {
         password: formData.password,
       });
       if (response?.data?.token) {
+        auth?.login(response?.data?.token);
+        localStorage.setItem("token", response?.data?.token);
         navigate("/details");
       }
       console.log(response?.data?.token, "==>>");
@@ -37,6 +42,8 @@ export default function Login() {
       console.log(error);
     }
   };
+
+  console.log("TOKEN =>>", localStorage.getItem("token"));
 
   return (
     <div className="container">

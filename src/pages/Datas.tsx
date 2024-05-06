@@ -22,6 +22,7 @@ import {
   FiChevronsLeft,
   FiChevronLeft,
 } from "react-icons/fi";
+import { useAuth } from "../context/auth";
 
 export type Post = {
   job: string;
@@ -44,6 +45,8 @@ export default function Datas() {
   const [isCreate, setIsCreate] = useState<boolean>(false);
   const [isEdit, setIsEdit] = useState<boolean>(false);
   //   const [storedData, setStoredData] = useState<Post[]>([]);
+
+  const auth = useAuth();
 
   const [editData, setEditData] = useState<Post>({
     job: "",
@@ -153,13 +156,16 @@ export default function Datas() {
   return (
     <div className="table-datas">
       <div className="header">
-        <button className="create-btn" onClick={() => setIsCreate(true)}>Create</button>
+        <button className="create-btn" onClick={() => setIsCreate(true)}>
+          Create
+        </button>
         <input
           type="text"
           placeholder="Search..."
           value={search ?? ""}
           onChange={(e) => setSerch(e.target.value)}
         />
+        <button onClick={() => auth?.logout()}>Logout</button>
       </div>
 
       <table>
