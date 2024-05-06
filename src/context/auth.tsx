@@ -10,17 +10,21 @@ type AuthType = {
 const AuthContext = createContext<AuthType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: ChildrenProps) => {
-  const [token, setToken] = useState<string | null>(null);
+  const [token, setToken] = useState<string>(
+    localStorage.getItem("token") || ""
+  );
 
   const login = (newToken: string) => {
-    localStorage.setItem("token", newToken);
+    console.log(token, "👉👉👉");
 
-    setToken(token);
+    localStorage.setItem("token", newToken);
+    setToken(newToken);
   };
 
   const logout = () => {
     localStorage.removeItem("token");
-    setToken(null);
+    window.location.reload();
+    setToken("");
   };
 
   return (

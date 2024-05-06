@@ -32,11 +32,11 @@ export default function Login() {
         email: formData.email,
         password: formData.password,
       });
-      if (response?.data?.token) {
+      // if (response?.data?.token) {
         auth?.login(response?.data?.token);
         // localStorage.setItem("token", response?.data?.token);
         navigate("/details");
-      }
+      // }
       console.log(response?.data?.token, "==>>");
     } catch (error) {
       console.log(error);

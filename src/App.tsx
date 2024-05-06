@@ -16,9 +16,9 @@ function App() {
           <Route
             path="/details"
             element={
-              // <RequireAuth>
+              <RequireAuth>
                 <Datas />
-              // </RequireAuth>
+              </RequireAuth>
             }
           />
         </Routes>
